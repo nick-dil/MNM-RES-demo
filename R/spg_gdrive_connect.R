@@ -1,4 +1,14 @@
 ### GDRIVE connection
+
+#' List contents of public POC folder on shared gdrive
+#'
+#' @param poc_gdrive_link URL to public gdrive folder. DEFAULT is link from demo.
+#'
+#' @returns named list.
+#' @export
+#'
+#' @examples
+#' getPocIdList()
 getPocIdList = function(
     poc_gdrive_link = "https://drive.google.com/drive/folders/1gzrB-5AG-KYHmiQUThyTEhpsboMPHXeT"){
   
@@ -13,12 +23,23 @@ getPocIdList = function(
   
 }
 
+#' Read spatial_sample.csv from gdrive folder
+#'
+#' @param poc_drive_id gdrive id (see \link[googledrive]{as_id})
+#' @param addVersion BOOL to add an extra column to the output with parent folder name (POC_version)
+#' @param demo BOOL whether to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]
+#'
+#' @returns An object of \link[base]{data.frame}
+#' @export
+#'
+#' @examples
+#' my_id = getPocIdList()[[1]]
+#' readPocSampleData(my_id)
 readPocSampleData = function(poc_drive_id, addVersion = TRUE, demo = TRUE){
   
   # Get matching CSV file from children
   my_poc_ls = drive_ls(poc_drive_id, recursive = T,
                        pattern = "spatial_samples", type = "csv")
-  # my_poc_ls
   
   # Warning if more than 1 CSV found -> take first
   # Stop if no CSV found
@@ -40,7 +61,6 @@ readPocSampleData = function(poc_drive_id, addVersion = TRUE, demo = TRUE){
   )
   
   if (demo){
-    
     # Load specifc dependency
     require(n2khab)
     hydr_class_lookup = n2khab::read_types()[, c("type", "hydr_class")]

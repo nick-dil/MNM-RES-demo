@@ -1,5 +1,23 @@
 
-compareSpgTables = function(spg_table_A, spg_table_B) {
+#' Plot comparison of sample size
+#'
+#' @param spg_table_A Data table as created by \link[spg]{wrangleSpgTable.demo}
+#' @param spg_table_B Data table as created by \link[spg]{wrangleSpgTable.demo}
+#'
+#' @returns Named list containing 3 plots.
+#' \itemize{
+#'   \item $spg_diff_barplot: sample size differences between the two datasets A vs B. Negative values have B more samples than A, and vice versa.
+#'   \item $spg_barplot: barplot indicating the absolute sample size per group, per dataset. Ordered on decreasing difference.
+#'   \item #spg_scatter: scatterplot to check sample size differences between the two datasets.
+#' }
+#' @export
+#'
+#' @examples
+#' spg.df.A = readPocSampleData(getPocIdList()[[6]]) %>% makeSpgTable() %>% wrangleSpgTable.demo()
+#' spg.df.B = readPocSampleData(getPocIdList()[[5]]) %>% makeSpgTable() %>% wrangleSpgTable.demo()
+#' plots.AB = plotSpgComparison(spg.df.A, spg.df.B)
+#' plots.AB$spg_diff_barplot
+plotSpgComparison = function(spg_table_A, spg_table_B) {
   
   # def output
   plot_out = list("spg_diff_barplot" = NA,
