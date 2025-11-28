@@ -12,9 +12,10 @@
 #' }
 #' @export
 #'
+#' @importFrom rlang .data
 #' @examples
-#' spg.df.A = readPocSampleData(getPocIdList()[[6]]) %>% makeSpgTable() %>% wrangleSpgTable.demo()
-#' spg.df.B = readPocSampleData(getPocIdList()[[5]]) %>% makeSpgTable() %>% wrangleSpgTable.demo()
+#' spg.df.A = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))
+#' spg.df.B = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[5]])))
 #' plots.AB = plotSpgComparison(spg.df.A, spg.df.B)
 #' plots.AB$spg_diff_barplot
 plotSpgComparison = function(spg_table_A, spg_table_B) {
@@ -41,7 +42,7 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   spg_diff$steekproefgrootte.diff = spg_diff$steekproefgrootte.x - spg_diff$steekproefgrootte.y
   
   # Order types based on difference
-  spg_diff = spg_diff %>% arrange(desc(steekproefgrootte.diff))
+  spg_diff = spg_diff[order(spg_diff$steekproefgrootte.diff, decreasing = T),]
   spg_diff$type = factor(spg_diff$type, levels = unique(spg_diff$type))
   
   # Add id (POCversion) labels
@@ -50,37 +51,44 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   spg_diff$higher_spg[spg_diff$steekproefgrootte.diff > 0] = unique(spg_table_A$id)
   
   # plot
-  plot_out$spg_diff_barplot =  spg_diff %>%
-    ggplot2::ggplot(ggplot2::aes(x = type, y = steekproefgrootte.diff, fill = higher_spg)) +
+  plot_out$spg_diff_barplot =  ggplot2::ggplot(
+    data = spg_diff,
+    ggplot2::aes(x = .data$type,
+                 y = .data$steekproefgrootte.diff,
+                 fill = .data$higher_spg)) +
     ggplot2::geom_col() +
-    ggplot2::facet_grid(vars(meetnet)) + 
-    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ggplot2::facet_grid(ggplot2::vars(.data$meetnet)) + 
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust = 1)) +
     ggplot2::ggtitle(paste0(
       "Difference in steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",
       unique(spg_table_B$id) ))
   
   # PLOT 2: bar plot steekproefgrootte
-  # bind data and make sure all fields have a value. If no data -> assume 0  
-  spg_table = bind_rows(spg_table_A, spg_table_B) %>% 
-    complete(meetnet, type, id, fill = list("steekproefgrootte" = 0))
+  spg_table = rbind(spg_table_A, spg_table_B)
   
   # also use the same ordenning on the x-axis by making factor
   spg_table$type = factor(spg_table$type, levels = unique(spg_diff$type))
   
-  plot_out$spg_barplot = spg_table %>% 
-    ggplot2::ggplot(ggplot2::aes(x = type, y = steekproefgrootte, fill = id)) + 
+  plot_out$spg_barplot = ggplot2::ggplot(
+    data = spg_table,
+    ggplot2::aes(x = .data$type,
+                 y = .data$steekproefgrootte,
+                 fill = .data$id)) + 
     ggplot2::geom_col(position = "dodge") +
-    ggplot2::facet_grid(ggplot2::vars(meetnet)) +
-    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ggplot2::ggtitle(paste0("Totale steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",unique(spg_table_B$id) ))
+    ggplot2::facet_grid(ggplot2::vars(.data$meetnet)) +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ggplot2::ggtitle(paste0("Totale steekproefgrootte: ", unique(spg_table_A$id), " v.s. ", unique(spg_table_B$id) ))
   
   # PLOT 3: difference on scatter
-  plot_out$spg_scatter = spg_diff %>%
-    ggplot2::ggplot(ggplot2::aes(x = steekproefgrootte.x, y = steekproefgrootte.y, label=type)) +
+  plot_out$spg_scatter = ggplot2::ggplot(
+    data = spg_diff, 
+    ggplot2::aes_string(x = .data$steekproefgrootte.x,
+                        y = .data$steekproefgrootte.y,
+                        label = .data$type)) +
     ggplot2::geom_label(size = 3) +
     ggplot2::geom_abline(intercept = 0, slope = 1) +
-    ggplot2::facet_grid(ggplot2::vars(meetnet)) + 
-    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ggplot2::facet_grid(ggplot2::vars(.data$meetnet)) + 
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust = 1)) +
     ggplot2::ggtitle(paste0("Steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",unique(spg_table_B$id) )) +
     ggplot2::xlab(paste0("steekproefgrootte ", unique(spg_table_A$id))) +
     ggplot2::ylab(paste0("steekproefgrootte ", unique(spg_table_B$id)))

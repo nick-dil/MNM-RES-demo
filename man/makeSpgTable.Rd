@@ -19,5 +19,5 @@ Aggregate sample table
 }
 \examples{
 my_id = getPocIdList()[[1]]
-readPocSampleData(my_id) \%>\% makeSpgTable()
+makeSpgTable(readPocSampleData(my_id))
 }

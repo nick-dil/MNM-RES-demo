@@ -23,8 +23,8 @@ Named list containing 3 plots.
 Plot comparison of sample size
 }
 \examples{
-spg.df.A = readPocSampleData(getPocIdList()[[6]]) \%>\% makeSpgTable() \%>\% wrangleSpgTable.demo()
-spg.df.B = readPocSampleData(getPocIdList()[[5]]) \%>\% makeSpgTable() \%>\% wrangleSpgTable.demo()
+spg.df.A = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))
+spg.df.B = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[5]])))
 plots.AB = plotSpgComparison(spg.df.A, spg.df.B)
 plots.AB$spg_diff_barplot
 }

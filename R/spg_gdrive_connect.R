@@ -51,7 +51,7 @@ readPocSampleData = function(poc_drive_id, addVersion = TRUE, isDemo = TRUE){
   }
   
   # Read file from GDrive ID
-  mycsv = read.table(
+  mycsv = utils::read.table(
     text = googledrive::drive_read_string(
       googledrive::as_id(my_poc_ls)
     ),

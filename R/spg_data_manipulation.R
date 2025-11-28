@@ -8,11 +8,11 @@
 #'
 #' @examples
 #' my_id = getPocIdList()[[1]]
-#' readPocSampleData(my_id) %>% makeSpgTable()
+#' makeSpgTable(readPocSampleData(my_id))
 makeSpgTable = function(poc_table, .id=NA){
   
   # count number of unique values for "locatie" per group
-  spg_table = aggregate(locatie ~ meetnet + type + hydr_class,
+  spg_table = stats::aggregate(locatie ~ meetnet + type + hydr_class,
                         data = poc_table,
                         function(x) length(unique(x)))
   
@@ -41,13 +41,13 @@ makeSpgTable = function(poc_table, .id=NA){
 #'
 #' @examples
 #' my_id = getPocIdList()[[1]]
-#' readPocSampleData(my_id) %>% makeSpgTable() %>% wrangleSpgTable.demo()
+#' wrangleSpgTable.demo(makeSpgTable(readPocSampleData(my_id)))
 wrangleSpgTable.demo = function(spg_table,
                                 meetnet_select = "GW_03.3",
                                 hydr_class_select = c("HC1", "HC12", "HC2") ) {
-  out = spg_table  %>% 
-    filter( meetnet %in% meetnet_select, hydr_class %in% hydr_class_select ) %>%
-    reframe(steekproefgrootte = sum(steekproefgrootte), .by = c(meetnet, type, id)) 
+  
+  out_slice = spg_table[spg_table$meetnet %in% meetnet_select & spg_table$hydr_class %in% hydr_class_select,]
+  out = stats::aggregate(steekproefgrootte ~ meetnet + type + id, data = out_slice, FUN = sum)
   
   return(out)
 }

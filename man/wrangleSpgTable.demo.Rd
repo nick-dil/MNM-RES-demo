@@ -25,5 +25,5 @@ Prune and summarize data for demonstration exercise objective
 }
 \examples{
 my_id = getPocIdList()[[1]]
-readPocSampleData(my_id) \%>\% makeSpgTable() \%>\% wrangleSpgTable.demo()
+wrangleSpgTable.demo(makeSpgTable(readPocSampleData(my_id)))
 }
