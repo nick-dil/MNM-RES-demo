@@ -13,7 +13,7 @@ getPocIdList = function(
     poc_gdrive_link = "https://drive.google.com/drive/folders/1gzrB-5AG-KYHmiQUThyTEhpsboMPHXeT"){
   
   # Authenticate and search for data
-  poc_ls = drive_ls(poc_gdrive_link)
+  poc_ls = googledrive::drive_ls(poc_gdrive_link)
   
   # create easier to use (interactively) poc-folder to id mapping in list
   poc_id_list = as.list(poc_ls$id)
@@ -27,7 +27,7 @@ getPocIdList = function(
 #'
 #' @param poc_drive_id gdrive id (see \link[googledrive]{as_id})
 #' @param addVersion BOOL to add an extra column to the output with parent folder name (POC_version)
-#' @param demo BOOL whether to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]
+#' @param isDemo BOOL whether select appropriate columns for demostration and, if "n2khab" is available, to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]
 #'
 #' @returns An object of \link[base]{data.frame}
 #' @export
@@ -35,10 +35,10 @@ getPocIdList = function(
 #' @examples
 #' my_id = getPocIdList()[[1]]
 #' readPocSampleData(my_id)
-readPocSampleData = function(poc_drive_id, addVersion = TRUE, demo = TRUE){
+readPocSampleData = function(poc_drive_id, addVersion = TRUE, isDemo = TRUE){
   
   # Get matching CSV file from children
-  my_poc_ls = drive_ls(poc_drive_id, recursive = T,
+  my_poc_ls = googledrive::drive_ls(poc_drive_id, recursive = T,
                        pattern = "spatial_samples", type = "csv")
   
   # Warning if more than 1 CSV found -> take first
@@ -52,30 +52,32 @@ readPocSampleData = function(poc_drive_id, addVersion = TRUE, demo = TRUE){
   
   # Read file from GDrive ID
   mycsv = read.table(
-    text = drive_read_string(
-      as_id(my_poc_ls)
+    text = googledrive::drive_read_string(
+      googledrive::as_id(my_poc_ls)
     ),
     header = T,
     sep = ",",
     fill = T
   )
   
-  if (demo){
-    # Load specifc dependency
-    require(n2khab)
-    hydr_class_lookup = n2khab::read_types()[, c("type", "hydr_class")]
-    
+  if (isDemo){
     # Select hardcoded colnames and translate
     mycsv = mycsv[, c("scheme", "stratum", "grts_address")]
     colnames(mycsv) = c('meetnet', "type", "locatie")
     
-    # Use lookup-table to match stratum (type) with HC
-    mycsv = merge(mycsv, hydr_class_lookup)
+    # Load from specific dependency, else just output selected cols
+    if (requireNamespace("n2khab")){
+      hydr_class_lookup = n2khab::read_types()[, c("type", "hydr_class")]
+      
+      # Use lookup-table to match stratum (type) with HC
+      mycsv = merge(mycsv, hydr_class_lookup)
+    }
+
   }
   
   if (addVersion){
     # Finally, add POC version
-    mycsv$id = drive_get(id=poc_drive_id)$name 
+    mycsv$id = googledrive::drive_get(id=poc_drive_id)$name 
   }
   
   return(mycsv)

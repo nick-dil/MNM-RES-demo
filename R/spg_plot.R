@@ -51,11 +51,11 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   
   # plot
   plot_out$spg_diff_barplot =  spg_diff %>%
-    ggplot(aes(x = type, y = steekproefgrootte.diff, fill = higher_spg)) +
-    geom_col() +
-    facet_grid(vars(meetnet)) + 
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ggtitle(paste0(
+    ggplot2::ggplot(ggplot2::aes(x = type, y = steekproefgrootte.diff, fill = higher_spg)) +
+    ggplot2::geom_col() +
+    ggplot2::facet_grid(vars(meetnet)) + 
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ggplot2::ggtitle(paste0(
       "Difference in steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",
       unique(spg_table_B$id) ))
   
@@ -68,22 +68,22 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   spg_table$type = factor(spg_table$type, levels = unique(spg_diff$type))
   
   plot_out$spg_barplot = spg_table %>% 
-    ggplot(aes(x = type, y = steekproefgrootte, fill = id)) + 
-    geom_col(position = "dodge") +
-    facet_grid(vars(meetnet)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ggtitle(paste0("Totale steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",unique(spg_table_B$id) ))
+    ggplot2::ggplot(ggplot2::aes(x = type, y = steekproefgrootte, fill = id)) + 
+    ggplot2::geom_col(position = "dodge") +
+    ggplot2::facet_grid(ggplot2::vars(meetnet)) +
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ggplot2::ggtitle(paste0("Totale steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",unique(spg_table_B$id) ))
   
   # PLOT 3: difference on scatter
   plot_out$spg_scatter = spg_diff %>%
-    ggplot(aes(x = steekproefgrootte.x, y = steekproefgrootte.y, label=type)) +
-    geom_label(size = 3) +
-    geom_abline(intercept = 0, slope = 1) +
-    facet_grid(vars(meetnet)) + 
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    ggtitle(paste0("Steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",unique(spg_table_B$id) )) +
-    xlab(paste0("steekproefgrootte ", unique(spg_table_A$id))) +
-    ylab(paste0("steekproefgrootte ", unique(spg_table_B$id)))
+    ggplot2::ggplot(ggplot2::aes(x = steekproefgrootte.x, y = steekproefgrootte.y, label=type)) +
+    ggplot2::geom_label(size = 3) +
+    ggplot2::geom_abline(intercept = 0, slope = 1) +
+    ggplot2::facet_grid(ggplot2::vars(meetnet)) + 
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    ggplot2::ggtitle(paste0("Steekproefgrootte: ", unique(spg_table_A$id), " v.s. ",unique(spg_table_B$id) )) +
+    ggplot2::xlab(paste0("steekproefgrootte ", unique(spg_table_A$id))) +
+    ggplot2::ylab(paste0("steekproefgrootte ", unique(spg_table_B$id)))
   
   return(plot_out)
 }

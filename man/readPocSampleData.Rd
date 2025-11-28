@@ -4,14 +4,14 @@
 \alias{readPocSampleData}
 \title{Read spatial_sample.csv from gdrive folder}
 \usage{
-readPocSampleData(poc_drive_id, addVersion = TRUE, demo = TRUE)
+readPocSampleData(poc_drive_id, addVersion = TRUE, isDemo = TRUE)
 }
 \arguments{
 \item{poc_drive_id}{gdrive id (see \link[googledrive]{as_id})}
 
 \item{addVersion}{BOOL to add an extra column to the output with parent folder name (POC_version)}
 
-\item{demo}{BOOL whether to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]}
+\item{isDemo}{BOOL whether select appropriate columns for demostration and, if "n2khab" is available, to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]}
 }
 \value{
 An object of \link[base]{data.frame}
