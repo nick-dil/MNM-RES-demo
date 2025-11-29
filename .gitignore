@@ -4,3 +4,5 @@
 .RData
 .Ruserdata
 *.csv
+examples/data*
+data
