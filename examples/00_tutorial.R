@@ -111,6 +111,6 @@ compare_plots$spg_diff_barplot + xlab("waterhuishoudingsklassen") +
   guides(fill = guide_legend(title = "Meer proeven in:")) 
 
 # Store the plots in a data/ dir
-sapply(names(compare_plots), function(x) ggsave(paste0(x, ".png"), compare_plots[[x]], path = "examples/data" ))
+sapply(names(compare_plots), function(x) ggsave(paste0(x, ".png"), compare_plots[[x]], path = "data" ))
 
 # All done!

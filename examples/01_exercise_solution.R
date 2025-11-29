@@ -3,7 +3,7 @@
 #################################
 # Load this pkg
 library(spg)
-library(tidyverse)
+library(dplyr)
 
 main = function(){
   # Retrieve POC dir ids ~ version
@@ -21,11 +21,11 @@ main = function(){
   
   # Store plots
   sapply(
-    names(compare_plots),
+    names(demo_plots),
     function(x) ggplot2::ggsave(
       paste0(x, ".png"),
-      compare_plots[[x]],
-      path = "data")
+      demo_plots[[x]],
+      path = "data", create.dir = TRUE)
   )
 }
 
