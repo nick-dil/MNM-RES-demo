@@ -13,9 +13,14 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Exercise RES vacature MNM (INBO)
+
+**NOTE: This is a toy package created for demonstration purposes ONLY !**
+
+- The name comes from the R-package function: to compare the **spg** or "SteekProefGrootte" (sample_size) for different datasets
+
 # spg
 
-**NOTE: This is a toy package created for expository purposes**
 <!-- badges: start -->
 <!-- badges: end -->
 
@@ -36,8 +41,7 @@ pak::pak("nick-dil/MNM-RES-demo")
 
 ## Example
 
-> [!NOTE]
-> See the `examples/00_tutorial.R`
+> **_NOTE:_** See the `examples/00_tutorial.R`
 
 This is a basic example which shows you how to solve the exercise:
 

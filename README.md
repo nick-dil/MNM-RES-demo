@@ -1,10 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# Exercise RES vacature MNM (INBO)
+
+**NOTE: This is a toy package created for demonstration purposes ONLY
+!**
+
+- The name comes from the R-package function: to compare the **spg** or
+  “SteekProefGrootte” (sample_size) for different datasets
+
 # spg
 
-**NOTE: This is a toy package created for expository purposes**
-<!-- badges: start --> <!-- badges: end -->
+<!-- badges: start -->
+
+<!-- badges: end -->
 
 The goal of spg is to demonstrate R skills in context of a vacature for
 RES at team MNM (INBO)
@@ -26,7 +35,7 @@ pak::pak("nick-dil/MNM-RES-demo")
 
 ## Example
 
-> \[!NOTE\] See the `examples/00_tutorial.R`
+> ***NOTE:*** See the `examples/00_tutorial.R`
 
 This is a basic example which shows you how to solve the exercise:
 
