@@ -23,5 +23,6 @@ Imports:
   rlang,
   ggplot2
 Suggests:
-  n2khab
-  
+    n2khab,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
