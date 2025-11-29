@@ -36,6 +36,9 @@ head(my_poc_data)
 table(my_poc_data$hydr_class)
 table(my_poc_data$meetnet)
 
+# extra; what do these HC<> classes actually mean?
+unique(n2khab::read_types()[, c("hydr_class", "hydr_class_name")])
+
 # examples on how to filter on column
 head(my_poc_data %>% filter( meetnet == "HQ6510"))
 head(my_poc_data %>% filter( hydr_class == "HC23"))

@@ -5,7 +5,7 @@
 library(spg)
 library(dplyr)
 
-main = function(){
+spg_main = function(){
   # Retrieve POC dir ids ~ version
   poc_id_list = getPocIdList()
   
@@ -31,4 +31,4 @@ main = function(){
 
 #### MAIN ####
 
-main()
+spg_main()
