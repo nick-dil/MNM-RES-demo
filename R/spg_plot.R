@@ -1,8 +1,8 @@
 
-#' Plot comparison of sample size
+#' Plot comparison of sample size (DEMO)
 #'
-#' @param spg_table_A Data table as created by \link[spg]{wrangleSpgTable}
-#' @param spg_table_B Data table as created by \link[spg]{wrangleSpgTable}
+#' @param spg_table_A Data table as created by \link[spg]{wrangleSpgTable}, see also See \link[spg]{readPocSampleData}
+#' @param spg_table_B Data table as created by \link[spg]{wrangleSpgTable}, see also See \link[spg]{readPocSampleData}
 #'
 #' @returns Named list containing 3 plots.
 #' \itemize{
@@ -27,11 +27,11 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   
   # PLOT 1: plot difference in steekproefgrootte
   # Check data naive
-  req_cols = c("meetnet", "type", "steekproefgrootte")
+  req_cols = c("meetnet", "hydr_class", "steekproefgrootte")
   spg_diff = merge(
     spg_table_A[, req_cols],
     spg_table_B[, req_cols],
-    by = c("meetnet", "type"), all = T)
+    by = c("meetnet", "hydr_class"), all = T)
   
   if (sum(is.na(spg_diff[, c(3,4)])) > 0) {
     warning("Not all combinations have data in both tables -> replacing missing values with 0 values")
@@ -41,9 +41,9 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   # Make difference
   spg_diff$steekproefgrootte.diff = spg_diff$steekproefgrootte.x - spg_diff$steekproefgrootte.y
   
-  # Order types based on difference
+  # Order hydr_classes based on difference
   spg_diff = spg_diff[order(spg_diff$steekproefgrootte.diff, decreasing = T),]
-  spg_diff$type = factor(spg_diff$type, levels = unique(spg_diff$type))
+  spg_diff$hydr_class = factor(spg_diff$hydr_class, levels = unique(spg_diff$hydr_class))
   
   # Add id (POCversion) labels
   spg_diff$higher_spg = NA
@@ -53,7 +53,7 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   # plot
   plot_out$spg_diff_barplot =  ggplot2::ggplot(
     data = spg_diff,
-    ggplot2::aes(x = .data$type,
+    ggplot2::aes(x = .data$hydr_class,
                  y = .data$steekproefgrootte.diff,
                  fill = .data$higher_spg)) +
     ggplot2::geom_col() +
@@ -67,11 +67,11 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   spg_table = rbind(spg_table_A, spg_table_B)
   
   # also use the same ordering on the x-axis by making factor
-  spg_table$type = factor(spg_table$type, levels = unique(spg_diff$type))
+  spg_table$hydr_class = factor(spg_table$hydr_class, levels = unique(spg_diff$hydr_class))
   
   plot_out$spg_barplot = ggplot2::ggplot(
     data = spg_table,
-    ggplot2::aes(x = .data$type,
+    ggplot2::aes(x = .data$hydr_class,
                  y = .data$steekproefgrootte,
                  fill = .data$id)) + 
     ggplot2::geom_col(position = "dodge") +
@@ -84,7 +84,7 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
     data = spg_diff, 
     ggplot2::aes(x = .data$steekproefgrootte.x,
                  y = .data$steekproefgrootte.y,
-                 label = .data$type)) +
+                 label = .data$hydr_class)) +
     ggplot2::geom_label(size = 3) +
     ggplot2::geom_abline(intercept = 0, slope = 1) +
     ggplot2::facet_grid(ggplot2::vars(.data$meetnet)) + 

@@ -2,14 +2,14 @@
 % Please edit documentation in R/spg_plot.R
 \name{plotSpgComparison}
 \alias{plotSpgComparison}
-\title{Plot comparison of sample size}
+\title{Plot comparison of sample size (DEMO)}
 \usage{
 plotSpgComparison(spg_table_A, spg_table_B)
 }
 \arguments{
-\item{spg_table_A}{Data table as created by \link[spg]{wrangleSpgTable}}
+\item{spg_table_A}{Data table as created by \link[spg]{wrangleSpgTable}, see also See \link[spg]{readPocSampleData}}
 
-\item{spg_table_B}{Data table as created by \link[spg]{wrangleSpgTable}}
+\item{spg_table_B}{Data table as created by \link[spg]{wrangleSpgTable}, see also See \link[spg]{readPocSampleData}}
 }
 \value{
 Named list containing 3 plots.
@@ -20,7 +20,7 @@ Named list containing 3 plots.
 }
 }
 \description{
-Plot comparison of sample size
+Plot comparison of sample size (DEMO)
 }
 \examples{
 spg.df.A = wrangleSpgTable(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))

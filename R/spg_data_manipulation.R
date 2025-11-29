@@ -46,7 +46,7 @@ makeSpgTable = function(poc_table, .id=NA){
 
 #' Prune and summarize data for demonstration exercise objective (DEMO)
 #'
-#' @param spg_table Aggregated sample size per group. See \link[spg]{makeSpgTable}
+#' @param spg_table Aggregated sample size per group. See \link[spg]{readPocSampleData}
 #' @param meetnet_select (optional) Choose 1 or more meetnetten to include in table, can be string or character vector. DEFAULT is "GW_03.3" per demo objective.
 #' @param hydr_class_select (optional) Choose 1 or more "hydr_class" to summarize by, can be string or character vector. DEFAULT is c("HC1", "HC12", "HC2"), the terrestrial "hydr_classes", per demo objective.
 #'
@@ -63,7 +63,7 @@ wrangleSpgTable = function(spg_table,
   checkIsDemoCols(spg_table)
   
   out_slice = spg_table[spg_table$meetnet %in% meetnet_select & spg_table$hydr_class %in% hydr_class_select,]
-  out = stats::aggregate(steekproefgrootte ~ meetnet + type + id, data = out_slice, FUN = sum)
+  out = stats::aggregate(steekproefgrootte ~ meetnet + hydr_class + id, data = out_slice, FUN = sum)
   
   return(out)
 }

@@ -11,7 +11,7 @@ wrangleSpgTable(
 )
 }
 \arguments{
-\item{spg_table}{Aggregated sample size per group. See \link[spg]{makeSpgTable}}
+\item{spg_table}{Aggregated sample size per group. See \link[spg]{readPocSampleData}}
 
 \item{meetnet_select}{(optional) Choose 1 or more meetnetten to include in table, can be string or character vector. DEFAULT is "GW_03.3" per demo objective.}
 
