@@ -1,0 +1,28 @@
+Package: spg
+Type: Package
+Title: Compare sample size PAS-effectmonitoring
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Nick", "Dillen",
+      email = "nick.dillen@inbo.be",
+      role = c("aut", "cre")
+    )
+  )
+Description: Demonstration for RES vacature team MNM (INBO) to compare sample
+  size for PAS-effectmonitoring. In Dutch 'sample size' translates to
+  'steekproefgrootte' (spg).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.3
+Imports:
+  googledrive,
+  stats,
+  utils,
+  rlang,
+  ggplot2
+Suggests:
+    n2khab,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

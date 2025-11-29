@@ -1,0 +1,81 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Exercise RES vacature MNM (INBO)
+
+**NOTE: This is a toy package created for demonstration purposes ONLY !**
+
+- The name comes from the R-package function: to compare the **spg** or "SteekProefGrootte" (sample_size) for different datasets
+
+# spg
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of spg is to demonstrate R skills in context of a vacature for RES at team MNM (INBO)
+
+- Load data from shared google drive
+- manipulate and aggregate data into required measure (sample_size = "steekproefgrootte")
+- plot measure to compare datasets
+
+## Installation
+
+You can install the development version of spg from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("nick-dil/MNM-RES-demo")
+```
+
+## Example
+
+> **_NOTE:_** See the `examples/00_tutorial.R`
+
+This is a basic example which shows you how to solve the exercise:
+
+```{r example, warning=FALSE}
+library(spg)
+library(tidyverse)
+
+# Retrieve POC dir ids ~ version
+poc_id_list = getPocIdList()
+
+# Read and create aggregated sample size ~ dataset, see exercise
+demo.v131 = readPocSampleData(poc_id_list$poc_0.13.1) %>% 
+  makeSpgTable() %>% wrangleSpgTable()
+
+demo.v140 = readPocSampleData(poc_id_list$poc_0.14.0) %>% 
+  makeSpgTable() %>% wrangleSpgTable()
+
+```
+
+Inspect a dataset:
+
+```{r demo14}
+summary(demo.v140)
+```
+
+And compare the sample_size between datasets with some exploratory plots:
+
+```{r plots}
+
+# Make comparison plots
+demo_plots = plotSpgComparison(demo.v131, demo.v140)
+
+demo_plots$spg_barplot
+demo_plots$spg_diff_barplot
+demo_plots$spg_scatter
+
+```
