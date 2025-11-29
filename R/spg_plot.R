@@ -1,8 +1,8 @@
 
 #' Plot comparison of sample size
 #'
-#' @param spg_table_A Data table as created by \link[spg]{wrangleSpgTable.demo}
-#' @param spg_table_B Data table as created by \link[spg]{wrangleSpgTable.demo}
+#' @param spg_table_A Data table as created by \link[spg]{wrangleSpgTable}
+#' @param spg_table_B Data table as created by \link[spg]{wrangleSpgTable}
 #'
 #' @returns Named list containing 3 plots.
 #' \itemize{
@@ -14,8 +14,8 @@
 #'
 #' @importFrom rlang .data
 #' @examples
-#' spg.df.A = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))
-#' spg.df.B = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[5]])))
+#' spg.df.A = wrangleSpgTable(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))
+#' spg.df.B = wrangleSpgTable(makeSpgTable(readPocSampleData(getPocIdList()[[5]])))
 #' plots.AB = plotSpgComparison(spg.df.A, spg.df.B)
 #' plots.AB$spg_diff_barplot
 plotSpgComparison = function(spg_table_A, spg_table_B) {
@@ -66,7 +66,7 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   # PLOT 2: bar plot steekproefgrootte
   spg_table = rbind(spg_table_A, spg_table_B)
   
-  # also use the same ordenning on the x-axis by making factor
+  # also use the same ordering on the x-axis by making factor
   spg_table$type = factor(spg_table$type, levels = unique(spg_diff$type))
   
   plot_out$spg_barplot = ggplot2::ggplot(
@@ -82,9 +82,9 @@ plotSpgComparison = function(spg_table_A, spg_table_B) {
   # PLOT 3: difference on scatter
   plot_out$spg_scatter = ggplot2::ggplot(
     data = spg_diff, 
-    ggplot2::aes_string(x = .data$steekproefgrootte.x,
-                        y = .data$steekproefgrootte.y,
-                        label = .data$type)) +
+    ggplot2::aes(x = .data$steekproefgrootte.x,
+                 y = .data$steekproefgrootte.y,
+                 label = .data$type)) +
     ggplot2::geom_label(size = 3) +
     ggplot2::geom_abline(intercept = 0, slope = 1) +
     ggplot2::facet_grid(ggplot2::vars(.data$meetnet)) + 

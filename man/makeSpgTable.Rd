@@ -2,12 +2,12 @@
 % Please edit documentation in R/spg_data_manipulation.R
 \name{makeSpgTable}
 \alias{makeSpgTable}
-\title{Aggregate sample table}
+\title{Aggregate sample table (DEMO)}
 \usage{
 makeSpgTable(poc_table, .id = NA)
 }
 \arguments{
-\item{poc_table}{\link[base]{data.frame} generated with \link[spg]{readPocSampleData}}
+\item{poc_table}{\link[base]{data.frame} generated with \link[spg]{readPocSampleData} with isDemo = TRUE (IMPORTANT)}
 
 \item{.id}{If NA (default), try to recuperate id from input. If set, a string to add as id column.}
 }
@@ -15,7 +15,7 @@ makeSpgTable(poc_table, .id = NA)
 Aggregated data into sample size per meetnet + type + hydr_class
 }
 \description{
-Aggregate sample table
+Aggregate sample table (DEMO)
 }
 \examples{
 my_id = getPocIdList()[[1]]

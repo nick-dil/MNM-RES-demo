@@ -27,7 +27,7 @@ getPocIdList = function(
 #'
 #' @param poc_drive_id gdrive id (see \link[googledrive]{as_id})
 #' @param addVersion BOOL to add an extra column to the output with parent folder name (POC_version)
-#' @param isDemo BOOL whether select appropriate columns for demostration and, if "n2khab" is available, to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]
+#' @param isDemo BOOL whether select and rename appropriate columns for demonstration and, if "n2khab" is available, to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]
 #'
 #' @returns An object of \link[base]{data.frame}
 #' @export

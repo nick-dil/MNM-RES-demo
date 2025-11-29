@@ -7,9 +7,9 @@
 plotSpgComparison(spg_table_A, spg_table_B)
 }
 \arguments{
-\item{spg_table_A}{Data table as created by \link[spg]{wrangleSpgTable.demo}}
+\item{spg_table_A}{Data table as created by \link[spg]{wrangleSpgTable}}
 
-\item{spg_table_B}{Data table as created by \link[spg]{wrangleSpgTable.demo}}
+\item{spg_table_B}{Data table as created by \link[spg]{wrangleSpgTable}}
 }
 \value{
 Named list containing 3 plots.
@@ -23,8 +23,8 @@ Named list containing 3 plots.
 Plot comparison of sample size
 }
 \examples{
-spg.df.A = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))
-spg.df.B = wrangleSpgTable.demo(makeSpgTable(readPocSampleData(getPocIdList()[[5]])))
+spg.df.A = wrangleSpgTable(makeSpgTable(readPocSampleData(getPocIdList()[[6]])))
+spg.df.B = wrangleSpgTable(makeSpgTable(readPocSampleData(getPocIdList()[[5]])))
 plots.AB = plotSpgComparison(spg.df.A, spg.df.B)
 plots.AB$spg_diff_barplot
 }

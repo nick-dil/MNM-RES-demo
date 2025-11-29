@@ -11,7 +11,7 @@ readPocSampleData(poc_drive_id, addVersion = TRUE, isDemo = TRUE)
 
 \item{addVersion}{BOOL to add an extra column to the output with parent folder name (POC_version)}
 
-\item{isDemo}{BOOL whether select appropriate columns for demostration and, if "n2khab" is available, to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]}
+\item{isDemo}{BOOL whether select and rename appropriate columns for demonstration and, if "n2khab" is available, to add "hydr_class" from n2khab::\link[n2khab]{read_types}[,c("type", "hydr_class")]}
 }
 \value{
 An object of \link[base]{data.frame}
