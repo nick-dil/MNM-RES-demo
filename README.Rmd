@@ -45,7 +45,7 @@ pak::pak("nick-dil/MNM-RES-demo")
 
 This is a basic example which shows you how to solve the exercise:
 
-```{r example, echo = FALSE}
+```{r example, warning=FALSE}
 library(spg)
 library(tidyverse)
 
@@ -69,7 +69,7 @@ summary(demo.v140)
 
 And compare the sample_size between datasets with some exploratory plots:
 
-```{r pressure, echo = FALSE}
+```{r plots}
 
 # Make comparison plots
 demo_plots = plotSpgComparison(demo.v131, demo.v140)
