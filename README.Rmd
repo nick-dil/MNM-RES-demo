@@ -13,18 +13,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Exercise RES vacature MNM (INBO)
+# Exercise RSE vacature MNM (INBO)
 
 **NOTE: This is a toy package created for demonstration purposes ONLY !**
 
-- The name comes from the R-package function: to compare the **spg** or "SteekProefGrootte" (sample_size) for different datasets
+- The R-package's name originates from its function: to read, calculate and compare the **spg** or "SteekProefGrootte" (sample_size) for different datasets
+- The GitHub repository is named for the meta-purpose: **demonstrating R coding skills**
+  - Evidently its not to showcase my _spelling_ skills as **R**esearch **S**oftware **E**ngineer should have been abbreviated to RSE instead of RES in `MNM-RES-demo`
 
 # spg
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of spg is to demonstrate R skills in context of a vacature for RES at team MNM (INBO)
+The goal of spg is to demonstrate R skills in context of a vacature for RSE at team MNM (INBO)
 
 - Load data from shared google drive
 - manipulate and aggregate data into required measure (sample_size = "steekproefgrootte")
@@ -45,7 +47,7 @@ pak::pak("nick-dil/MNM-RES-demo")
 
 This is a basic example which shows you how to solve the exercise:
 
-```{r example, warning=FALSE}
+```{r example, warning=FALSE, message = FALSE}
 library(spg)
 library(tidyverse)
 
